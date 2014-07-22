@@ -5,7 +5,6 @@ var browserify = require('browserify')
 var npm = require('npm')
 var uglify = require('uglify-js')
 var fs = require('fs')
-var mkdirp = require('mkdirp')
 var fsSync = require('fs-sync')
 
 var cwd = process.cwd()
@@ -92,7 +91,12 @@ function installAndBuild(installDirectory, next) {
 
 		function minify(code) {
 			console.log("** Minifying")
-			var smallerCode = uglify.minify(code, { fromString: true }).code
+			var smallerCode = uglify.minify(code, {
+				fromString: true,
+				output: {
+					semicolons: false
+				}
+			}).code
 			fs.writeFileSync(buildFile, smallerCode)
 			next()
 		}
