@@ -42,7 +42,11 @@ installAndBuild(cwd, function(err) {
 		console.log("** npm uninstall noddity")
 		npm.prefix = cwd
 		npm.commands.uninstall(['noddity'], function() {
-			fs.rmdirSync(path.join(cwd, 'node_modules'))
+			try {
+				fs.rmdirSync(path.join(cwd, 'node_modules'))
+			} catch (e) {
+				// Apparently when this is run from a global module, sometimes uninstalling also removes the node_module directory for you?
+			}
 		})
 	}
 })
