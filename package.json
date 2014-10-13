@@ -1,6 +1,6 @@
 {
   "name": "noddity-installer",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Installs a ready-to-deploy Noddity!",
   "main": "index.js",
   "scripts": {

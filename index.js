@@ -29,6 +29,7 @@ installAndBuild(cwd, function(err) {
 		easyCopy('index.html')
 		easyCopy('logo.svg')
 		easyCopy('style.css')
+		easyCopy('fonts.css')
 
 		var indexJsonFile = path.join(cwd, 'content', 'index.json')
 		if (!fs.existsSync(indexJsonFile)) {
