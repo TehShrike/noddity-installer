@@ -1,4 +1,4 @@
-The Noddity installer
+The [Noddity](http://noddity.com/) installer
 =============
 
 Install it globally `npm install -g noddity-installer`, browse to an empty directory where you want a fresh Noddity install, and just run `noddity`!
