@@ -10,41 +10,45 @@ var fsSync = require('fs-sync')
 var cwd = process.cwd()
 
 installAndBuild(cwd, function(err) {
+	var joinToCwd = path.join.bind(path, cwd)
 	if (err) {
 		console.log(err)
 	} else {
-		var noddityDirectory = path.join(cwd, 'node_modules', 'noddity')
+		var noddityDirectory = joinToCwd('node_modules', 'noddity')
 		var easyCopy = copy.bind(null, noddityDirectory, cwd)
 
-		easyCopy('content/404.md')
-
-		easyCopy('js/build.js')
-		easyCopy('js/vendor/satnav.js')
-
-		easyCopy('icon')
-		easyCopy('font')
-
-		easyCopy('.htaccess')
-		easyCopy('config.js')
-		easyCopy('index.html')
-		easyCopy('logo.svg')
-		easyCopy('style.css')
-		easyCopy('fonts.css')
-
-		var indexJsonFile = path.join(cwd, 'content', 'index.json')
-		if (!fs.existsSync(indexJsonFile)) {
-			fs.writeFileSync(indexJsonFile, '[]')
+		function createIfNotExists(name, content) {
+			var path = joinToCwd('content', name)
+			if (!fs.existsSync(path)) {
+				fs.writeFileSync(path, content)
+			}
 		}
-		var indexMdFile = path.join(cwd, 'content', 'index.md')
-		if (!fs.existsSync(indexMdFile)) {
-			fs.writeFileSync(indexMdFile, 'Welcome!\n==========\n\nGo edit this markdown file and make this site your own.')
-		}
+
+		[
+			'content/404.md',
+
+			'js/build.js',
+			'js/vendor/satnav.js',
+
+			'icon',
+			'font',
+
+			'.htaccess',
+			'config.js',
+			'index.html',
+			'logo.svg',
+			'style.css',
+			'fonts.css'
+		].forEach(easyCopy)
+
+		createIfNotExists('index.json', '[]')
+		createIfNotExists('index.md', 'Welcome!\n==========\n\nGo edit this markdown file and make this site your own.')
 
 		console.log("** npm uninstall noddity")
 		npm.prefix = cwd
 		npm.commands.uninstall(['noddity'], function() {
 			try {
-				fs.rmdirSync(path.join(cwd, 'node_modules'))
+				fs.rmdirSync(joinToCwd('node_modules'))
 			} catch (e) {
 				// Apparently when this is run from a global module, sometimes uninstalling also removes the node_module directory for you?
 			}
