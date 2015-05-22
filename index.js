@@ -42,7 +42,7 @@ installAndBuild(cwd, function(err) {
 		].forEach(easyCopy)
 
 		createIfNotExists('index.json', '[]')
-		createIfNotExists('index.md', 'Welcome!\n==========\n\nGo edit this markdown file and make this site your own.')
+		createIfNotExists('index.md', 'title: Welcome!\n\nGo edit this markdown file and make this site your own.')
 
 		console.log("** npm uninstall noddity")
 		npm.prefix = cwd
@@ -88,8 +88,8 @@ function installAndBuild(installDirectory, next) {
 
 		function build(noddityDirectory) {
 			console.log("** Building with Browserify")
-			var b = browserify(path.join(noddityDirectory, 'js', 'index.js'))
-			b.bundle({ detectGlobals: true }, function(err, code) {
+			var b = browserify(path.join(noddityDirectory, 'js', 'index.js'), { detectGlobals: true })
+			b.bundle(function(err, code) {
 				if (err) {
 					next(err)
 				} else {
@@ -100,7 +100,7 @@ function installAndBuild(installDirectory, next) {
 
 		function minify(code) {
 			console.log("** Minifying")
-			var smallerCode = uglify.minify(code, {
+			var smallerCode = uglify.minify(code.toString(), {
 				fromString: true,
 				output: {
 					semicolons: false
