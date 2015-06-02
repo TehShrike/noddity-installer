@@ -26,9 +26,9 @@ installAndBuild(cwd, function(err) {
 
 		[
 			'content/404.md',
+			'content/post',
 
 			'js/build.js',
-			'js/vendor/satnav.js',
 
 			'icon',
 			'font',
