@@ -1,6 +1,8 @@
 The [Noddity](http://noddity.com/) installer
 =============
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/TehShrike/noddity-installer.svg)](https://greenkeeper.io/)
+
 Install it globally `npm install -g noddity-installer`, browse to an empty directory where you want a fresh Noddity install, and just run `noddity`!
 
 Setting up your site
