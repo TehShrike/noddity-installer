@@ -21,9 +21,9 @@
   },
   "homepage": "https://github.com/TehShrike/noddity-installer",
   "dependencies": {
-    "browserify": "^10.0.0",
-    "fs-sync": "^0.2.4",
-    "npm": "^2.7.0",
+    "browserify": "^14.0.0",
+    "fs-sync": "^1.0.3",
+    "npm": "^4.2.0",
     "uglify-js": "^2.4.13"
   },
   "bin": {
